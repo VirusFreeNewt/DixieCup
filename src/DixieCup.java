@@ -1,12 +1,40 @@
+import org.jetbrains.annotations.NotNull;
+
 public class DixieCup
 {
     private String[] items;
     private int itemNumber = 0;
 
-    private int numItems;
+    private static DixieCup cup;
 
     private StringBuilder contents = new StringBuilder();
 
+    public static int mostItems(@NotNull DixieCup[] cups)
+    {
+        cup = cups[0];
+        int i;
+        for(i = 1; i < cups.length - 1; ++i)
+        {
+            if(cups[i].numItems() > cup.numItems())
+            {
+                cup = cups[i];
+            }
+        }
+        return i;
+    }
+    public static int leastItem(@NotNull DixieCup[] cups)
+    {
+        cup = cups[0];
+        int i;
+        for(i = 1; i < cups.length - 1; ++i)
+        {
+            if(cups[i].numItems() < cup.numItems())
+            {
+                cup = cups[i];
+            }
+        }
+        return i;
+    }
     private void setIndex()
     {
         itemNumber = 0;
@@ -24,7 +52,7 @@ public class DixieCup
     {
         items = new String[numItems];
     }
-    public boolean addItem(String itemName)
+    boolean addItem(String itemName)
     {
         setIndex();
         if(itemNumber < items.length)
@@ -35,7 +63,7 @@ public class DixieCup
         return false;
     }
 
-    public void removeItem(String itemName)
+    void removeItem(String itemName)
     {
         for(int i = 0; i < items.length; ++i)
         {
@@ -49,18 +77,26 @@ public class DixieCup
             }
         }
     }
-    public void setItem(int index, String newItem)
+    void setItem(int index, String newItem)
     {
         items[index] = newItem;
     }
+    void swapItem(@NotNull DixieCup cup1, @NotNull DixieCup cup2, int index1, int index2)
+    {
+        String temp = cup1.getItem(index1);
+        cup1.setItem(index1, cup2.getItem(index2));
+        cup2.setItem(index2, temp);
 
-    public String getItem(int index)
+    }
+
+
+    String getItem(int index)
     {
         return items[index];
     }
-    public int numItems()
+    int numItems()
     {
-        numItems = 0;
+        int numItems = 0;
         for(String item : items)
         {
             if(item != null)
@@ -70,7 +106,7 @@ public class DixieCup
         }
         return numItems;
     }
-    public int length()
+    int length()
     {
         return items.length;
     }
