@@ -1,5 +1,3 @@
-import org.jetbrains.annotations.NotNull;
-
 public class DixieCup
 {
     private String[] items;
@@ -9,7 +7,7 @@ public class DixieCup
 
     private StringBuilder contents = new StringBuilder();
 
-    public static int mostItems(@NotNull DixieCup[] cups)
+    public static int mostItems(DixieCup[] cups)
     {
         cup = cups[0];
         int i;
@@ -22,7 +20,7 @@ public class DixieCup
         }
         return i;
     }
-    public static int leastItem(@NotNull DixieCup[] cups)
+    public static int leastItem(DixieCup[] cups)
     {
         cup = cups[0];
         int i;
@@ -81,7 +79,7 @@ public class DixieCup
     {
         items[index] = newItem;
     }
-    void swapItem(@NotNull DixieCup cup1, @NotNull DixieCup cup2, int index1, int index2)
+    void swapItem(DixieCup cup1, DixieCup cup2, int index1, int index2)
     {
         String temp = cup1.getItem(index1);
         cup1.setItem(index1, cup2.getItem(index2));
