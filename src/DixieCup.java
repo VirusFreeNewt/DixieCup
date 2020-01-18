@@ -7,31 +7,34 @@ public class DixieCup
 
     private StringBuilder contents = new StringBuilder();
 
+    private void setIndex()
+    {
+        itemNumber = 0;
+        while(itemNumber < items.length)
+        {
+            if(items[itemNumber] == null)
+            {
+                break;
+            }
+            ++itemNumber;
+        }
+    }
+
     public DixieCup(int numItems)
     {
         items = new String[numItems];
     }
-    public void addItem(String itemName)
+    public boolean addItem(String itemName)
     {
+        setIndex();
         if(itemNumber < items.length)
         {
             items[itemNumber] = itemName;
-            while(itemNumber < items.length)
-            {
-
-                if(items[itemNumber] == null)
-                {
-                    break;
-                }
-                ++itemNumber;
-            }
-
+            return true;
         }
+        return false;
     }
-    public String getItem(int index)
-    {
-        return items[index];
-    }
+
     public void removeItem(String itemName)
     {
         for(int i = 0; i < items.length; ++i)
@@ -41,11 +44,19 @@ public class DixieCup
                 if(items[i].equals(itemName))
                 {
                     items[i] = null;
-                    itemNumber = i;
                     break;
                 }
             }
         }
+    }
+    public void setItem(int index, String newItem)
+    {
+        items[index] = newItem;
+    }
+
+    public String getItem(int index)
+    {
+        return items[index];
     }
     public int numItems()
     {
@@ -63,7 +74,6 @@ public class DixieCup
     {
         return items.length;
     }
-    //TODO: add goto next null index
     @Override
     public String toString()
     {
@@ -71,7 +81,12 @@ public class DixieCup
         contents.append("Contents: ");
         for(String item : items)
         {
-            contents.append(item).append(" ");
+            if(item != null)
+            {
+                contents.append(item).append(" ");
+                continue;
+            }
+            contents.append("Empty ");
         }
         return contents.toString();
     }
