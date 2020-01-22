@@ -5,9 +5,9 @@ public class DixieCup
 
     private static DixieCup cup;
 
-    private StringBuilder contents = new StringBuilder();
+    private static StringBuilder contents = new StringBuilder();
 
-    public static int mostItems(DixieCup[] cups)
+    static int mostItems(DixieCup[] cups)
     {
         cup = cups[0];
         int i;
@@ -18,9 +18,9 @@ public class DixieCup
                 cup = cups[i];
             }
         }
-        return i;
+        return cup.itemNumber;
     }
-    public static int leastItem(DixieCup[] cups)
+    static int leastItems(DixieCup[] cups)
     {
         cup = cups[0];
         int i;
@@ -31,7 +31,7 @@ public class DixieCup
                 cup = cups[i];
             }
         }
-        return i;
+        return cup.itemNumber;
     }
     private void setIndex()
     {
@@ -84,8 +84,14 @@ public class DixieCup
         String temp = cup1.getItem(index1);
         cup1.setItem(index1, cup2.getItem(index2));
         cup2.setItem(index2, temp);
-
     }
+    void swapItem(int index1, int index2)
+    {
+        String temp = getItem(index1);
+        setItem(index1, getItem(index2));
+        setItem(index2, temp);
+    }
+
 
 
     String getItem(int index)
@@ -121,6 +127,26 @@ public class DixieCup
                 continue;
             }
             contents.append("Empty ");
+        }
+        return contents.toString();
+    }
+    static String toString(DixieCup[] cups)
+    {
+        contents.setLength(0); //clear the contents string
+        for(int i = 0; i < cups.length; ++i)
+        {
+            contents.append("Contents of Cup ").append(i).append(": ");
+            for(int j = 0; j < cups[i].length(); ++j)
+            {
+                String item = cups[i].getItem(j);
+                if(item != null)
+                {
+                    contents.append(item).append(" ");
+                    continue;
+                }
+                contents.append("Empty ");
+            }
+            contents.append("\n");
         }
         return contents.toString();
     }
